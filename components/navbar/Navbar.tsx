@@ -8,8 +8,6 @@ import { UserButton } from "@clerk/nextjs";
 import { Menu, Search } from "lucide-react";
 import { SidebarRoutes } from "../sidebarRoutes";
 
-
-
 export const Navbar = () => {
   return (
     <div className="flex items-center px-2 gap-x-4 md:px-6 justify-between w-full bg-background border-b h-20">
