@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Noto_Sans_Display } from "next/font/google";
-import {ClerkProvider} from '@clerk/nextjs'
+import { ClerkProvider } from '@clerk/nextjs'
 import "./globals.css";
+import { ThemeProvider } from "@/components/theme";
 
 const noto = Noto_Sans_Display({ subsets: ["latin"] });
 
@@ -19,7 +20,14 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body className={noto.className}>
-          {children}
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+          </ThemeProvider>
         </body>
       </html>
     </ClerkProvider>
