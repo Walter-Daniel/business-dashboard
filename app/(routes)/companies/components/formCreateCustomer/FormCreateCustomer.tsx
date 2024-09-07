@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/button"
 import {
     Form,
     FormControl,
-    FormDescription,
     FormField,
     FormItem,
     FormLabel,
@@ -47,6 +46,7 @@ export const FormCreateCustomer = (props: FormCreateCustomerProps) => {
         },
     })
 
+    const { isValid } = form.formState;
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         console.log(values)
     }
@@ -150,6 +150,7 @@ export const FormCreateCustomer = (props: FormCreateCustomerProps) => {
                                             <p className="text-sm">Image uploaded!</p>
                                         ) : (
                                             <UploadButton
+                                                {...field}
                                                 className="bg-slate-600/20 text-slate-800 rounded-lg outline-dotted outline-2"
                                                 endpoint="profileImage"
                                                 onClientUploadComplete={(res) => {
@@ -173,7 +174,7 @@ export const FormCreateCustomer = (props: FormCreateCustomerProps) => {
                             )}
                         />
                     </div>
-                    <Button type="submit">Submit</Button>
+                    <Button type="submit" disabled={!isValid}>Submit</Button>
                 </form>
             </Form>
         </div>
