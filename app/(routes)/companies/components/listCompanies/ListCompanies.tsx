@@ -2,6 +2,8 @@ import { db } from '@/lib/db';
 import { auth } from '@clerk/nextjs/server'
 import { redirect } from 'next/navigation';
 import React from 'react'
+import { DataTable } from './data-table';
+import {columns} from './columns';
 
 export const ListCompanies = async() => {
 
@@ -19,8 +21,7 @@ export const ListCompanies = async() => {
         }
     });
 
-    console.log({companies})
   return (
-    <div>ListCompanies</div>
+    <DataTable columns={columns} data={companies}/>
   )
 }

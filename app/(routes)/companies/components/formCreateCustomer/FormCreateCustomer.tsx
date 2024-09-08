@@ -47,7 +47,7 @@ export const FormCreateCustomer = (props: FormCreateCustomerProps) => {
             website: "",
             phone: "",
             cif: "",
-            profileImage: "",
+            profileImage: undefined,
         },
     })
     const { isValid } = form.formState;
@@ -64,7 +64,6 @@ export const FormCreateCustomer = (props: FormCreateCustomerProps) => {
                 title: "Something went wrong.",
                 variant: "destructive"
             })
-            
         }
     }
 
@@ -167,8 +166,8 @@ export const FormCreateCustomer = (props: FormCreateCustomerProps) => {
                                             <p className="text-sm">Image uploaded!</p>
                                         ) : (
                                             <UploadButton
-                                                {...field}
                                                 className="bg-slate-600/20 text-slate-800 rounded-lg outline-dotted outline-2"
+                                                {...field}
                                                 endpoint="profileImage"
                                                 onClientUploadComplete={(res) => {
                                                     form.setValue("profileImage", res?.[0].url);
