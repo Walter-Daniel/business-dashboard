@@ -28,7 +28,7 @@ export const NewContact = () => {
                         Create your contacts to manege them later.
                     </DialogDescription>
                 </DialogHeader>
-                <FormContact />
+                <FormContact setOpen={setOpen}/>
             </DialogContent>
         </Dialog>
     )

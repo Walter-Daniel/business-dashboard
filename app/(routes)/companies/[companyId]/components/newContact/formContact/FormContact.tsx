@@ -5,15 +5,16 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { formContactSchema } from "./FormContact.schema";
 import { z } from "zod";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import axios from "axios";
 import { toast } from "@/hooks/use-toast";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui";
+import { FormContactProps } from "./FormContact.interface";
 
-export const FormContact = () => {
+export const FormContact = ({setOpen}: FormContactProps) => {
     const router = useRouter();
-
+    const params = useParams<{companyId: string}>();
     const form = useForm<z.infer<typeof formContactSchema>>({
         resolver: zodResolver(formContactSchema),
         defaultValues: {
@@ -26,10 +27,11 @@ export const FormContact = () => {
 
     const onSubmit = async (values: z.infer<typeof formContactSchema>) => {
         try {
-            await axios.patch(`/api/contact`, values)
+            await axios.post(`/api/company/${params.companyId}/contact`, values)
             toast({
-                title: "Company updated!"
+                title: "Create contact successfully!"
             });
+            setOpen(false);
             router.refresh();
         } catch (error) {
             console.log(error);
@@ -49,9 +51,9 @@ export const FormContact = () => {
                         name="name"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Company name</FormLabel>
+                                <FormLabel>Contact name</FormLabel>
                                 <FormControl>
-                                    <Input placeholder="Company name..."
+                                    <Input placeholder="Francisco Lopez"
                                         type="text"
                                         {...field} />
                                 </FormControl>
@@ -92,7 +94,7 @@ export const FormContact = () => {
                         name="role"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>CIF</FormLabel>
+                                <FormLabel>Role</FormLabel>
                                 <FormControl>
                                     <Input placeholder="Developer" type="text" {...field} />
                                 </FormControl>
