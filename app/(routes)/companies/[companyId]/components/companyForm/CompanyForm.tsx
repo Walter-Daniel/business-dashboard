@@ -13,6 +13,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { toast } from "@/hooks/use-toast";
 import { UploadButton } from "@/utils/uploadthing";
 import { Button } from "@/components/ui";
+import axios from "axios";
 
 
 export const CompanyForm = (props: CompanyInformationProps) => {
@@ -35,9 +36,20 @@ export const CompanyForm = (props: CompanyInformationProps) => {
     })
 
     const onSubmit = async(values: z.infer<typeof companyFormSchema>) => {
-        console.log(values)
+        try {
+            await axios.patch(`/api/company/${company.id}`, values)
+            toast({
+                title: "Company updated!"
+            });
+            router.refresh();
+        } catch (error) {
+            console.log(error);
+            toast({
+                title: "Something went wrong.",
+                variant: "destructive"
+            })
+        }
     }
-
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
