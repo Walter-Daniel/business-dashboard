@@ -22,7 +22,7 @@ export const dataGeneralSideBar = [
     {
         icon: Calendar,
         label: "Calendar",
-        href: "/task"
+        href: "/tasks"
     }
 ];
 
