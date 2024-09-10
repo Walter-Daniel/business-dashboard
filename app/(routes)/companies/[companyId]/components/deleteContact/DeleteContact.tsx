@@ -28,20 +28,18 @@ export const DeleteContact = ({idContact}:{idContact: string}) => {
                 title: result.message,
             }) 
         } else {
-            console.error(result.message);
             toast({
                 title: result.message,
                 variant: "destructive"
             })
         }
-       
         route.refresh();
         setOpen(false);
     }
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <Button>
+                <Button variant="destructive">
                     <Trash className="w-4 h-4"/>
                 </Button>
             </DialogTrigger>
