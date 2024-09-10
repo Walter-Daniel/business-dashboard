@@ -35,3 +35,29 @@ export async function PATCH(req: Request, { params }: Props ) {
     }
 
 }
+
+export async function DELETE(req: Request, { params }: Props ) {
+
+    try {
+        const { userId } = auth();
+        const { companyId } = params;
+
+        if(!userId){
+            return new NextResponse("Unauthorized", {status:401})
+        }
+
+        const company = await db.company.delete({
+            where:{
+                id: companyId,
+                userId
+            },
+        });
+
+        return NextResponse.json(company);
+
+    } catch (error) {
+        console.log("[COMPANY ID]", error);
+        return new NextResponse("Internal Error", {status: 500});
+    }
+
+}

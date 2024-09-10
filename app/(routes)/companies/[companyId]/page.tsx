@@ -3,6 +3,7 @@ import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { Header } from "./components/header";
 import { CompanyInformation } from "./components/companyInformation";
+import { FooterCompany } from "./components/footerCompany";
 
 interface Props {
   params: {
@@ -31,6 +32,7 @@ export default async function CompanyPage({params}:Props) {
     <div>
       <Header />
       <CompanyInformation company={company}/>
+      <FooterCompany companyId={company.id} />
     </div>
   );
 }
