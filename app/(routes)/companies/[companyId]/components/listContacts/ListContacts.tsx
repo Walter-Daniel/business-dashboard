@@ -47,9 +47,9 @@ export async function ListContacts({ companyId }: ListContactProps) {
                 </a>
               </div>
             <div className="flex items-center justify-end gap-x-2">
-              <Button variant="ghost">
+              {/* <Button variant="ghost">
                 <Pencil className="w-4 h-4"/>
-              </Button>
+              </Button> */}
               <DeleteContact idContact={contact.id}/>
             </div>
             </div>
