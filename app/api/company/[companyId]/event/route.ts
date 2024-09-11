@@ -1,6 +1,5 @@
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
-import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 
 interface Props {
@@ -35,7 +34,6 @@ export async function POST(req:Request, {params}:Props){
             }
         });
 
-        revalidatePath('/tasks')
         return NextResponse.json(event);
     } catch (error) {
         console.log("[CONTACT]", error);
