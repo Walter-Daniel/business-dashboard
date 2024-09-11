@@ -53,18 +53,22 @@ export const Calendar = ({ companies, events }: CalendarProps) => {
         timeFormat: 'H(:mm)'
       }
 
-      try {
-        axios.post(`/api/company/${newEvent.companiesSelected.id}/event`, newEventPrisma)
+
+      axios.post(`/api/company/${newEvent.companiesSelected.id}/event`, newEventPrisma)
+      .then((res) => (
         toast({
           title: "Event created!"
-        });
-        router.refresh();
-      } catch (error) {
+        }),
+        router.refresh()
+      )).catch((err)=> (
         toast({
           title: "Something went wrong.",
           variant: "destructive"
         })
-      }
+      )
+        
+      )
+     
       setNewEvent({
         eventName: "",
         companiesSelected: {
@@ -88,7 +92,7 @@ export const Calendar = ({ companies, events }: CalendarProps) => {
         toast({
           title: "Event deleted!"
         });
-        return router.refresh();
+        router.refresh();
       } catch (error) {
         console.log(error);
         toast({
