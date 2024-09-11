@@ -5,7 +5,7 @@ import { SalesDistributor } from "./components/salesDostrobutors";
 import { TotalSuscriber } from "./components/totalSuscriber";
 import { ListIntegration } from "./components/listLintegration";
 
-export const dataCardsSummary = [
+const dataCardsSummary = [
   {
     icon: UserRound,
     total: "12.450",
