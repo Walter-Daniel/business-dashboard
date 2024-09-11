@@ -14,7 +14,8 @@ import { DateSelectArg, EventContentArg } from '@fullcalendar/core/index.js';
 import axios from 'axios';
 import { Company, Event } from '@prisma/client';
 import { formatDate } from '@/lib/formatDate';
-import { Toast } from '@/components/ui/toast';
+import { ModalAddEvent } from '../modalEventAdd';
+import { toast } from '@/hooks/use-toast';
 
 interface CalendarProps {
   companies: Company[];
@@ -28,7 +29,7 @@ export const Calendar = ({ companies, events }: CalendarProps) => {
   const [selectedItem, setSelectedItem] = useState<DateSelectArg>();
   const [newEvent, setNewEvent] = useState({
     eventName: "",
-    companieSelectd: {
+    companiesSelected: {
       name: "",
       id: ""
     }
@@ -39,11 +40,64 @@ export const Calendar = ({ companies, events }: CalendarProps) => {
     setSelectedItem(selected);
   }
 
-  const HandleEventClick = async() => {
-    console.log('HandleEventClick')
-  };
+  useEffect(() => {
+    if(onSaveNewEvent && selectedItem?.view.calendar){
+      const calendarApi = selectedItem.view.calendar;
+      calendarApi.unselect();
 
+      const newEventPrisma = {
+        companyId: newEvent.companiesSelected.id,
+        title: newEvent.eventName,
+        start: new Date(selectedItem.start),
+        allDay: false,
+        timeFormat: 'H(:mm)'
+      }
+
+      try {
+        axios.post(`/api/company/${newEvent.companiesSelected.id}/event`, newEventPrisma)
+        toast({
+          title: "Event created!"
+        });
+        router.refresh();
+      } catch (error) {
+        toast({
+          title: "Something went wrong.",
+          variant: "destructive"
+        })
+      }
+      setNewEvent({
+        eventName: "",
+        companiesSelected: {
+          name: "",
+          id: ""
+        }
+      });
+
+      setOnSaveNewEvent(false);
+      
+    }
+  }, [onSaveNewEvent, selectedItem, router, toast, newEvent])
   
+
+  const HandleEventClick = async(selectd:any) => {
+    if(window.confirm(
+        `Are you sure you want to delete this event? ${selectd.event.title}`
+    )){
+      try {
+        axios.delete(`/api/event/${selectd.event._def.publicId}`)
+        toast({
+          title: "Event deleted!"
+        });
+        return router.refresh();
+      } catch (error) {
+        console.log(error);
+        toast({
+          title: "Something went wrong.",
+          variant: "destructive"
+        })
+      }
+    }
+  };
 
   return (
     <div>
@@ -80,13 +134,20 @@ export const Calendar = ({ companies, events }: CalendarProps) => {
           />
         </div>
       </div>
+      <ModalAddEvent
+        open={open}
+        setOpen={setOpen}
+        companies={companies}
+        setNewEvent={setNewEvent}
+        setOnSaveNewEvent={setOnSaveNewEvent}
+      />
     </div>
   )
 }
 
 function renderEventContent(eventInfo: EventContentArg) {
   return (
-    <div className='bg-slate-200 dark:bg-background w-full p-1'>
+    <div className='text-black w-full p-1'>
       <i>{eventInfo.event.title}</i>
     </div>
   )

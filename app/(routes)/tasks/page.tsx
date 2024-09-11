@@ -25,7 +25,9 @@ export default async function TasksPage() {
         }
     });
 
-    console.log(event)
+    if(event){
+        event.map(e => console.log(e.start))
+    }
 
   return (
     <div>
