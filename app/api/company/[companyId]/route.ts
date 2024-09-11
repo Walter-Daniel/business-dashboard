@@ -2,13 +2,7 @@ import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
-interface Props {
-    params: {
-        companyId: string
-    }
-}
-
-export async function PATCH(req: Request, { params }: Props ) {
+export async function PATCH(req: Request, { params }: { params: { companyId: string } } ) {
 
     try {
         const { userId } = auth();
@@ -36,7 +30,7 @@ export async function PATCH(req: Request, { params }: Props ) {
 
 }
 
-export async function DELETE(req: Request, { params }: Props ) {
+export async function DELETE(req: Request, { params }: { params: { companyId: string } } ) {
 
     try {
         const { userId } = auth();

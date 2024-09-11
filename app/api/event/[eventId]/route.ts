@@ -1,15 +1,9 @@
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
-import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 
-interface Props{
-    params: {
-        eventId: string
-    }
-}
 
-export async function DELETE(request: Request, {params}:Props){
+export async function DELETE(request: Request, { params }: { params: { eventId: string } }){
 
     try {
         const { userId } = auth();
