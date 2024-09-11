@@ -47,7 +47,7 @@ export const FormCreateCustomer = (props: FormCreateCustomerProps) => {
             website: "",
             phone: "",
             cif: "",
-            profileImage: undefined,
+            profileImage: "",
         },
     })
     const { isValid } = form.formState;

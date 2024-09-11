@@ -80,9 +80,8 @@ export const Calendar = ({ companies, events }: CalendarProps) => {
       setOnSaveNewEvent(false);
       
     }
-  }, [onSaveNewEvent, selectedItem, router, toast, newEvent])
+  }, [onSaveNewEvent, selectedItem, router, newEvent])
   
-
   const HandleEventClick = async(selectd:any) => {
     if(window.confirm(
         `Are you sure you want to delete this event? ${selectd.event.title}`

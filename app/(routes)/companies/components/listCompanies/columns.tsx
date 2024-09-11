@@ -22,11 +22,11 @@ export const columns: ColumnDef<Company>[] = [
     accessorKey: "profileImage",
     header: "Profile Image",
     cell: ({row}) => {
-        const image = row.getValue("profileImage");
+        const image:string = row.getValue("profileImage");
         return (
             <div className="px-3">
-                <Image 
-                    src={typeof image=== 'string' ? image : "/images/company-icon.png"}
+                <Image
+                    src={image.length > 2 ? image : "/images/company-icon.png"}
                     width={40}
                     height={40}
                     alt="Image"

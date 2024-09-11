@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { companyFormSchema } from "./CompanyFormSchema";
 import { useRouter } from "next/navigation";
 import { z } from "zod";
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { CompanyInformationProps } from "../companyInformation/companyInformation.interface";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -43,7 +43,6 @@ export const CompanyForm = (props: CompanyInformationProps) => {
             });
             router.refresh();
         } catch (error) {
-            console.log(error);
             toast({
                 title: "Something went wrong.",
                 variant: "destructive"
