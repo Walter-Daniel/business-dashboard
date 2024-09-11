@@ -42,36 +42,3 @@ export async function POST(req:Request, {params}:Props){
         return new NextResponse("Internal Error", {status:500})
     }
 }
-
-export async function GET(request: Request, {params}:Props){
-
-    try {
-        const { userId } = auth();
-        if(!userId){
-            return new NextResponse("Unauthorize", {status:401})
-        };
-
-        const { companyId } = params;
-        const company = await db.company.findFirst({
-            where:{
-                id: companyId,
-            }
-        })
-
-        if(!company){
-            return new NextResponse("Company Not Found.", {status:401})
-        }
-        const contacts = await db.contact.findMany({
-            where:{
-                company: {
-                    id: companyId
-                }
-            }
-        });
-
-        return NextResponse.json(contacts);
-    } catch (error) {
-        console.log("[CONTACT]", error);
-        return new NextResponse("Internal Error", {status:500})
-    }
-}
