@@ -1,36 +1,81 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🌟 **Dashboard Empresarial** 🌟
 
-## Getting Started
+¡Bienvenido al **Dashboard Empresarial**! Este proyecto es una aplicación web diseñada para gestionar y visualizar datos empresariales con una interfaz intuitiva y atractiva. Utiliza Next.js para la creación de la aplicación, Clerk para la autenticación, Recharts para gráficos, FullCalendar para la gestión de calendarios, y muchas otras herramientas.
 
-First, run the development server:
+## 🚀 **Características del Proyecto**
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **Next.js 14**: Framework para aplicaciones React.
+- **Clerk**: Gestión de autenticación y autorización de usuarios.
+- **FullCalendar**: Solución completa de calendario y eventos.
+- **React Hook Form**: Manejo avanzado de formularios.
+- **Prisma**: ORM para gestionar la base de datos.
+- **Recharts**: Biblioteca para la creación de gráficos interactivos.
+- **Radix UI**: Componentes accesibles y personalizados.
+
+## 🛠️ **Scripts Disponibles**
+
+En el directorio del proyecto, puedes ejecutar:
+
+- `npm run dev`: Inicia el servidor de desarrollo.
+- `npm run build`: Construye la aplicación para producción.
+- `npm run start`: Inicia el servidor en modo producción.
+- `npm run lint`: Verifica el código para asegurar calidad y consistencia.
+
+## 📦 **Dependencias Principales**
+
+- **@clerk/nextjs**: Autenticación y autorización.
+- **@fullcalendar/core**: Motor principal de FullCalendar.
+- **@radix-ui/react-accordion**: Componente accesible de acordeón.
+- **@tanstack/react-table**: Librería para manejar tablas.
+- **recharts**: Gráficos interactivos.
+- **tailwindcss**: Framework de utilidades CSS para un diseño rápido.
+
+## 📂 **Rutas y Middleware**
+
+Este proyecto usa middleware de Clerk para proteger rutas privadas:
+
+```javascript
+import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
+
+const isPublicRoute = createRouteMatcher(['/sign-in(.*)', '/sign-up(.*)', '/api/uploadthing'])
+
+export default clerkMiddleware((auth, request) => {
+  if (!isPublicRoute(request)) {
+    auth().protect()
+  }
+});
+
+export const config = {
+  matcher: [
+    '/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)',
+    '/(api|trpc)(.*)',
+  ],
+};
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🔑 **Variables de Entorno**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Asegúrate de configurar las siguientes variables de entorno en un archivo `.env` en la raíz del proyecto:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+```bash
+# Clerk Authentication Keys
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
+CLERK_SECRET_KEY=
 
-## Learn More
+# Clerk URLs
+NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
 
-To learn more about Next.js, take a look at the following resources:
+# UploadThing Keys
+UPLOADTHING_SECRET=
+UPLOADTHING_APP_ID=
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Database URL
+DATABASE_URL=
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+# API URL
+NEXT_PUBLIC_API_URL=
+```
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## 💬 Contacto
+Si tienes alguna pregunta o sugerencia, no dudes en contactarme a través de walterdcarrizo.19@gmail.com.
