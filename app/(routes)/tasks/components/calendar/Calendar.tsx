@@ -92,7 +92,7 @@ export const Calendar = ({ companies, events }: CalendarProps) => {
         toast({
           title: "Event deleted!"
         });
-        return router.refresh();
+        router.refresh();
       } catch (error) {
         console.log(error);
         toast({
